@@ -17,14 +17,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     electricity.cpp \
     water.cpp \
-    waterdb.cpp
+    waterdb.cpp \
+    dialog_input_new_value.cpp
 
 HEADERS  += mainwindow.h \
     electricity.h \
     water.h \
     waterdb.h \
-    Common.h
+    Common.h \
+    dialog_input_new_value.h
 
 FORMS    += mainwindow.ui \
     electricity.ui \
-    water.ui
+    water.ui \
+    dialog_input_new_value.ui
