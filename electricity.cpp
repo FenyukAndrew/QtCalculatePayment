@@ -1,7 +1,8 @@
 #include "electricity.h"
 #include "ui_electricity.h"
+#include "Common.h"
 
-#include <QtGui/QApplication>
+//#include <QtGui/QApplication>
 #include <QtSql>
 #include <QTableView>
 
@@ -21,7 +22,7 @@ void Electricity::on_pushButton_clicked()
 {
     //Не сработало - таблица не вывелась
     /*QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName("/home/andrew/Dropbox/OutWiker_Files/Databases/Payments.db");
+    dbase.setDatabaseName(pathDB);
     if (!dbase.open()) {
         qDebug() << "Что-то не так с соединением!";
         return;
@@ -43,7 +44,7 @@ void Electricity::on_pushButton_clicked()
 void Electricity::on_pushButton_2_clicked()
 {
     QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName("/home/andrew/Dropbox/OutWiker_Files/Databases/Payments.db");
+    dbase.setDatabaseName(pathDB);
     if (!dbase.open()) {
         qDebug() << "Error connect!";
         return;

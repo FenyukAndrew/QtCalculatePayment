@@ -1,6 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-const char* pathDB="/home/andrew/Dropbox/OutWiker_Files/Databases/Payments.db";
+extern const char* pathDB;
 
 #endif // COMMON_H
