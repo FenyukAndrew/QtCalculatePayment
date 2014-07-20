@@ -10,11 +10,16 @@ water::water(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QLocale russain_locale(QLocale::Russian);
-
     m_WaterDB=new WaterDB();
+    show_last_record();
+}
 
-    water_record* m_water_record=m_WaterDB->get_last_data();
+void water::show_last_record()
+{
+    //С этим происходит ошибка if (m_water_record!=0) delete m_water_record;
+    m_water_record=m_WaterDB->get_last_record();
+
+    QLocale russain_locale(QLocale::Russian);
 
     //QLocale::LongFormat - пятница, 3 января 2014 г. 1:00:00 MSK
     //QLocale::ShortFormat - 01.01.01 00:00
@@ -43,6 +48,7 @@ water::water(QWidget *parent) :
 
 water::~water()
 {
+    //if (m_water_record) delete m_water_record;
     delete ui;
     delete m_WaterDB;
 }
@@ -53,7 +59,6 @@ void water::on_checkBox_HavePaid_stateChanged(int arg1)
     if (arg1!=0)
     {
         qDebug() << "ON";
-
     }
     else
     {
@@ -72,4 +77,22 @@ void water::on_pushButton_InputNewValue_clicked()
     Dialog_Input_New_Value* m_dialog_input_new_value=new Dialog_Input_New_Value();
     m_dialog_input_new_value->show();
 
+    //Проблема - эта часть кода вызывается при начале оторажения диалога
+    water_record m_water_record;
+    m_water_record.Value=m_dialog_input_new_value->get_Value();
+    m_water_record.Month_Year_Payment=m_dialog_input_new_value->get_Date();
+    //m_WaterDB->insert_new_record(&m_water_record);
+
+    show_last_record();
+}
+
+void water::on_pushButton_OK_clicked()
+{
+    if (m_water_record)
+    {
+        //Здесь определить состояние checkOut и сделать update, если необходимо
+        //m_WaterDB->update_new_record(m_water_record);
+    }
+
+    close();
 }

@@ -26,6 +26,8 @@ private slots:
 
     void on_pushButtonRubbish_clicked();
 
+    void on_pushButtonControl_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

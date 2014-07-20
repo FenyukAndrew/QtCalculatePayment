@@ -12,3 +12,11 @@ Dialog_Input_New_Value::~Dialog_Input_New_Value()
 {
     delete ui;
 }
+
+void Dialog_Input_New_Value::on_pushButton_OK_clicked()
+{
+    value=ui->lineEditValue->text().toDouble();
+    date_input=ui->dateEdit->date();
+
+    close();
+}

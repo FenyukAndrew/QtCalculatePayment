@@ -19,20 +19,26 @@ SOURCES += main.cpp\
     electricity.cpp \
     water.cpp \
     waterdb.cpp \
-    Common.cpp
+    Common.cpp \
+    control_payments.cpp
 
 HEADERS  += mainwindow.h \
     Common.h \
     dialog_input_new_value.h \
     electricity.h \
     water.h \
-    waterdb.h
+    waterdb.h \
+    control_payments.h
 
 FORMS    += mainwindow.ui \
     dialog_input_new_value.ui \
     electricity.ui \
-    water.ui
+    water.ui \
+    control_payments.ui
 
 CONFIG += mobility
 MOBILITY = 
+
+OTHER_FILES += \
+    Readme.txt
 

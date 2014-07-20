@@ -8,6 +8,7 @@ class water;
 }
 
 class WaterDB;
+class water_record;
 
 class water : public QDialog
 {
@@ -24,10 +25,17 @@ private slots:
 
     void on_pushButton_InputNewValue_clicked();
 
+    void on_pushButton_OK_clicked();
+
 private:
+
+    void show_last_record();
+
     Ui::water *ui;
 
     WaterDB* m_WaterDB;
+
+    water_record* m_water_record;
 };
 
 #endif // WATER_H

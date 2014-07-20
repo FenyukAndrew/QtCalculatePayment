@@ -38,3 +38,8 @@ void MainWindow::on_pushButtonRubbish_clicked()
 {
 
 }
+
+void MainWindow::on_pushButtonControl_clicked()
+{
+
+}
