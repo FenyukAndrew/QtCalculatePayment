@@ -16,25 +16,40 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialog_input_new_value.cpp \
-    electricity.cpp \
-    water.cpp \
-    waterdb.cpp \
     Common.cpp \
-    control_payments.cpp
+    control_payments.cpp \
+    Database/waterdb.cpp \
+    Forms/electricity.cpp \
+    Forms/rubbish.cpp \
+    Forms/water.cpp \
+    Forms/gas.cpp \
+    Database/electricitydb.cpp \
+    Database/gasdb.cpp \
+    Database/rubbishdb.cpp \
+    Database/commondb.cpp
 
 HEADERS  += mainwindow.h \
     Common.h \
     dialog_input_new_value.h \
-    electricity.h \
-    water.h \
-    waterdb.h \
-    control_payments.h
+    control_payments.h \
+    Common_Struct_data.h \
+    Database/waterdb.h \
+    Forms/electricity.h \
+    Forms/rubbish.h \
+    Forms/water.h \
+    Forms/gas.h \
+    Database/electricitydb.h \
+    Database/gasdb.h \
+    Database/rubbishdb.h \
+    Database/commondb.h
 
 FORMS    += mainwindow.ui \
     dialog_input_new_value.ui \
-    electricity.ui \
-    water.ui \
-    control_payments.ui
+    control_payments.ui \
+    Forms/electricity.ui \
+    Forms/rubbish.ui \
+    Forms/water.ui \
+    Forms/gas.ui
 
 CONFIG += mobility
 MOBILITY = 

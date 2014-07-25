@@ -2,13 +2,14 @@
 #define WATER_H
 
 #include <QDialog>
+#include "Common_Struct_data.h"
+
+class WaterDB;
+class Water_record;
 
 namespace Ui {
 class water;
 }
-
-class WaterDB;
-class water_record;
 
 class water : public QDialog
 {
@@ -35,7 +36,7 @@ private:
 
     WaterDB* m_WaterDB;
 
-    water_record* m_water_record;
+    Water_record m_water_record;
 };
 
 #endif // WATER_H
