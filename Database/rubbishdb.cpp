@@ -9,14 +9,14 @@ RubbishDB::~RubbishDB()
 {
 }
 
-void RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
+bool RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
 {
     //Записи сортируются по _id = иначе неправильный ввод значения может все испортить
     //Записи идут в обратном порядке - вначале самая последняя, затем предпоследняя
    if (!a_query->exec("SELECT Date_Input_Value,Sum,Date_Payment,Month_Payment,Year_Payment FROM Rubbish order by _id DESC limit 1"))
     {
         qDebug() << "Error select Rubbish";
-        return;
+        return false;
     }
     QSqlRecord rec = a_query->record();
 
@@ -36,7 +36,9 @@ void RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
             //и они были актуальны на время оплаты
             m_rubbish_record->Sum=cur_tariff;
         }
+        return true;
     }
+    return false;
 }
 
 void RubbishDB::insert_new_record(Rubbish_record* m_rubbish_record)

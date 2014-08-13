@@ -1,6 +1,6 @@
 #include "water.h"
-#include "Database/waterdb.h"
 #include "ui_water.h"
+#include "Database/waterdb.h"
 #include <QLocale>
 #include "dialog_input_new_value.h"
 
@@ -16,7 +16,8 @@ water::water(QWidget *parent) :
 
 void water::show_last_record()
 {
-    m_WaterDB->get_last_record(&m_water_record);
+    if (m_WaterDB->get_last_record(&m_water_record))
+    {
 
     QLocale russain_locale(QLocale::Russian);
 
@@ -50,6 +51,7 @@ void water::show_last_record()
         ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
         //qDebug() << "not valid";
     }
+    }
 }
 
 water::~water()
@@ -80,13 +82,15 @@ void water::on_checkBox_HavePaid_clicked()
 
 void water::on_pushButton_InputNewValue_clicked()
 {
-    Dialog_Input_New_Value m_dialog_input_new_value;
+    std::list<QString> name_counters;
+    name_counters.push_back(QString("Значение счетчика:"));
+    Dialog_Input_New_Value m_dialog_input_new_value(name_counters);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
     {
         Water_record m_water_record;
-        m_water_record.Value=m_dialog_input_new_value.get_Value();
+        m_water_record.Value=m_dialog_input_new_value.get_Value()[0];
         m_water_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
         m_WaterDB->insert_new_record(&m_water_record);
 

@@ -1,110 +1,90 @@
 #include "electricity.h"
 #include "ui_electricity.h"
-#include "Common.h"
-
-//#include <QtGui/QApplication>
-#include <QtSql>
-#include <QTableView>
+#include "Database/electricitydb.h"
+#include <QLocale>
+#include "dialog_input_new_value.h"
 
 Electricity::Electricity(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Electricity)
 {
     ui->setupUi(this);
+
+    m_ElectricityDB=new ElectricityDB();
+    show_last_record();
+}
+
+void Electricity::show_last_record()
+{
+    if (m_ElectricityDB->get_last_record(&m_electricity_record))
+    {
+
+    QLocale russain_locale(QLocale::Russian);
+
+    ui->Date_Input_Value->setText(russain_locale.toString(m_electricity_record.Date_Input_Value,"dd.MM.yyyy hh:mm:ss"));
+    ui->Month_Year_Payment->setText(russain_locale.toString(m_electricity_record.Month_Year_Payment,"MM\\yyyy"));
+
+    ui->Value_Day->setText(russain_locale.toString(m_electricity_record.Value_Day));
+    ui->Value_Night->setText(russain_locale.toString(m_electricity_record.Value_Night));
+    ui->Value_External->setText(russain_locale.toString(m_electricity_record.Value_External));
+    ui->Delta_devices->setText(russain_locale.toString(m_electricity_record.delta_devices));
+
+    ui->Sum->setText(russain_locale.toString(m_electricity_record.Sum,'f',3));
+    if (m_electricity_record.Date_Payment.isValid())
+    {
+        //Вывод когда была произведена оплата
+        ui->checkBox_HavePaid->setText("ОПЛАЧЕНО "+russain_locale.toString(m_electricity_record.Date_Payment,"dd.MM.yyyy hh:mm:ss"));
+        ui->checkBox_HavePaid->setChecked(1);
+        ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
+        ui->pushButton_InputNewValue->setEnabled(1);
+    }
+    else
+    {
+        ui->checkBox_HavePaid->setText("ОПЛАТИТЬ");
+        ui->checkBox_HavePaid->setChecked(0);
+        ui->checkBox_HavePaid->setEnabled(1);
+        ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
+    }
+    }
 }
 
 Electricity::~Electricity()
 {
     delete ui;
+    delete m_ElectricityDB;
 }
 
-void Electricity::on_pushButton_clicked()
+void Electricity::on_pushButton_InputNewValue_clicked()
 {
-    //Не сработало - таблица не вывелась
-    /*QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName(pathDB);
-    if (!dbase.open()) {
-        qDebug() << "Что-то не так с соединением!";
-        return;
-    }
+    std::list<QString> name_counters;
+    name_counters.push_back(QString("Значение счетчика День:"));
+    name_counters.push_back(QString("Значение счетчика Ночь:"));
+    name_counters.push_back(QString("Значение счетчика Внешний:"));
+    Dialog_Input_New_Value m_dialog_input_new_value(name_counters);
+    int retCode = m_dialog_input_new_value.exec();
 
-    QTableView& view=*(ui->tableView);
-    QSqlTableModel model;
-
-    model.setTable("Water");
-    model.select();
-    model.setEditStrategy(QSqlTableModel::OnFieldChange);
-
-    view.setModel(&model);
-    //view.show();
-    qDebug() << "Try connect7!";*/
-}
-
-//Между запусками программы таблицы сохраняются - путь был не верен
-void Electricity::on_pushButton_2_clicked()
-{
-    QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
-    dbase.setDatabaseName(pathDB);
-    if (!dbase.open()) {
-        qDebug() << "Error connect!";
-        return;
-    }
-
-    QSqlQuery a_query;
-    /*// DDL query
-    QString str = "CREATE TABLE my_table3 ("
-            "number integer PRIMARY KEY NOT NULL, "
-            "address VARCHAR(255), "
-            "age integer"
-            ");";
-    bool b = a_query.exec(str);
-    if (!b) {
-        qDebug() << "Error create table!";
-    }*/
-
-    // DML
-    /*QString str_insert = "INSERT INTO my_table(number, address, age) "
-            "VALUES (%1, '%2', %3);";
-    str = str_insert.arg("14")
-            .arg("hello world str.")
-            .arg("37");
-    b = a_query.exec(str);
-    if (!b) {
-        qDebug() << "Кажется данные не вставляются, проверьте дверь, может она закрыта?";
-    }*/
-    //.....
-    if (!a_query.exec("SELECT * FROM Water")) {
-        qDebug() << "Error select.";
-        return;
-    }
-    QSqlRecord rec = a_query.record();
-    int number = 0,
-            age = 0;
-    QString address = "";
-
-    while (a_query.next())
+    if (retCode==QDialog::Accepted)
     {
-        /*number = a_query.value(rec.indexOf("number")).toInt();
-        age = a_query.value(rec.indexOf("age")).toInt();
-        address = a_query.value(rec.indexOf("address")).toString();
+        Electricity_record m_electricity_record;
+        std::vector<double> values=m_dialog_input_new_value.get_Value();
+        m_electricity_record.Value_Day=values[0];
+        m_electricity_record.Value_Night=values[1];
+        m_electricity_record.Value_External=values[2];
+        m_electricity_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_ElectricityDB->insert_new_record(&m_electricity_record);
 
-        qDebug() << "number is " << number
-                 << ". age is " << age
-                 << ". address" << address;*/
-        qDebug() << "_id= " << a_query.value(rec.indexOf("_id")).toString()
-                 << "Value= " << a_query.value(rec.indexOf("Value")).toString()
-                 << "Sum= " << a_query.value(rec.indexOf("Sum")).toString();
-
-/*        _id INTEGER PRIMARY KEY AUTOINCREMENT,
-        Date_Input_Value DateTime,
-        Value real,
-        Sum real,
-        Sum_Commission real,
-        Date_Payment DateTime,
-        Tariff real,
-        Month_Payment char,
-        Year_Payment char
-        , "DatePayment" DATETIME)*/
-
+        show_last_record();
     }
+}
+
+void Electricity::on_pushButton_OK_clicked()
+{
+    if (!m_electricity_record.Date_Payment.isValid())
+    {//Только в случае первого ввода данных
+        if (ui->checkBox_HavePaid->isChecked())
+        {//Update делается только если подтвержден платеж
+            m_ElectricityDB->update_new_record(&m_electricity_record);
+        };
+    };
+    close();
 }

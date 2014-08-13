@@ -42,7 +42,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QFormLayout" name="formLayout_2">
+      <layout class="QFormLayout" name="formLayout_Counters">
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
@@ -64,20 +64,6 @@
            <month>1</month>
            <day>1</day>
           </date>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Значение счетчика:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditValue">
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>

@@ -10,7 +10,7 @@ public:
     ElectricityDB();
     ~ElectricityDB();
 
-    void get_last_record(Electricity_record* m_electricity_record);
+    bool get_last_record(Electricity_record* m_electricity_record);
     void insert_new_record(Electricity_record* m_electricity_record);
     void update_new_record(Electricity_record* m_electricity_record);
 

@@ -10,7 +10,7 @@ public:
     WaterDB();
     ~WaterDB();
 
-    void get_last_record(Water_record* m_water_record);
+    bool get_last_record(Water_record* m_water_record);
     void insert_new_record(Water_record* m_water_record);
     void update_new_record(Water_record* m_water_record);
 

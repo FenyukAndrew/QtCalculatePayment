@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Rubbish</class>
  <widget class="QDialog" name="Rubbish">
@@ -5,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>288</width>
+    <height>185</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,7 +34,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Вода</string>
+        <string>Мусор</string>
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
@@ -45,6 +46,9 @@
      </item>
      <item>
       <layout class="QFormLayout" name="formLayout_2">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
@@ -92,7 +96,7 @@
           </palette>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -106,63 +110,21 @@
        <item row="1" column="1">
         <widget class="QLabel" name="Month_Year_Payment">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Показания:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="Value">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Дата ввода показаний:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="2" column="1">
         <widget class="QLabel" name="Date_Input_Value">
          <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Коммисия:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="Commission">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Общая сумма:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLabel" name="Sum_Commission">
-         <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -209,7 +171,8 @@
      </item>
     </layout>
    </item>
-  </layout> </widget>
+  </layout>
+ </widget>
  <resources/>
  <connections/>
 </ui>

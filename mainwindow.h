@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Common_parameters.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    double sum_payments[c_types_of_payments];
 };
 
 #endif // MAINWINDOW_H

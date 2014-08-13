@@ -9,14 +9,14 @@ GasDB::~GasDB()
 {
 }
 
-void GasDB::get_last_record(Gas_record* m_gas_record)
+bool GasDB::get_last_record(Gas_record* m_gas_record)
 {
     //Записи сортируются по _id = иначе неправильный ввод значения может все испортить
     //Записи идут в обратном порядке - вначале самая последняя, затем предпоследняя
     if (!a_query->exec("SELECT Date_Input_Value,Value,Sum,Date_Payment,Tariff,Month_Payment,Year_Payment FROM Gas order by _id DESC limit 2"))
      {
          qDebug() << "Error select Gas";
-         return;
+         return false;
      }
      QSqlRecord rec = a_query->record();
 
@@ -45,7 +45,9 @@ void GasDB::get_last_record(Gas_record* m_gas_record)
              m_gas_record->Tariff=cur_tariff;
              m_gas_record->Sum=m_gas_record->Tariff*(m_gas_record->Value-value_last_month);
          }
+         return true;
      }
+     return false;
 }
 
 void GasDB::insert_new_record(Gas_record* m_gas_record)

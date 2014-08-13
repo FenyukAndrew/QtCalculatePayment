@@ -10,14 +10,14 @@ ElectricityDB::~ElectricityDB()
 {
 }
 
-void ElectricityDB::get_last_record(Electricity_record* m_electricity_record)
+bool ElectricityDB::get_last_record(Electricity_record* m_electricity_record)
 {
     //Записи сортируются по _id = иначе неправильный ввод значения может все испортить
     //Записи идут в обратном порядке - вначале самая последняя, затем предпоследняя
     if (!a_query->exec("SELECT Date_Input_Value,Value_Day,Value_Night,Value_External,Sum,Date_Payment,TariffDay,TariffNight,Month_Payment,Year_Payment FROM Electricity order by _id DESC limit 2"))
      {
          qDebug() << "Error select Electricity";
-         return;
+         return false;
      }
      QSqlRecord rec = a_query->record();
 
@@ -61,7 +61,9 @@ void ElectricityDB::get_last_record(Electricity_record* m_electricity_record)
              //Разница в показаниях счетчиков: двухтарифный и входной
              //Лучше считать с начальным месяцем в базе, но для этого нужно делать дополнительный запрос
          }
+         return true;
      }
+     return false;
 }
 
 void ElectricityDB::insert_new_record(Electricity_record* m_electricity_record)

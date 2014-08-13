@@ -14,7 +14,7 @@ WaterDB::~WaterDB()
 //SELECT * FROM Water order by _id DESC limit 3 - При расчете
 //TOP = DESC LIMIT 1
 
-void WaterDB::get_last_record(Water_record* m_water_record)
+bool WaterDB::get_last_record(Water_record* m_water_record)
 {
     //if (!m_water_record) return;
     //Лучше сортировать не по значению, а по _id = иначе неправильный ввод значения может все испортить
@@ -23,7 +23,7 @@ void WaterDB::get_last_record(Water_record* m_water_record)
        //SELECT * FROM Water order by _id DESC limit 1
     {
         qDebug() << "Error select Water";
-        return;
+        return false;
     }
     QSqlRecord rec = a_query->record();
 
@@ -64,7 +64,9 @@ void WaterDB::get_last_record(Water_record* m_water_record)
             m_water_record->Sum=m_water_record->Tariff*(value_last_month-value_two_month_ago);
             m_water_record->Sum_Commission=(m_water_record->Sum)*(1+0.01);
         }
+        return true;
     }
+    return false;
 }
 
 //Вставка записи при вводе показания

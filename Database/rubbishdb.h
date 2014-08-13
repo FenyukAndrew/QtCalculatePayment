@@ -10,7 +10,7 @@ public:
     RubbishDB();
     ~RubbishDB();
 
-    void get_last_record(Rubbish_record* m_rubbish_record);
+    bool get_last_record(Rubbish_record* m_rubbish_record);
     void insert_new_record(Rubbish_record* m_rubbish_record);
     void update_new_record(Rubbish_record* m_rubbish_record);
 

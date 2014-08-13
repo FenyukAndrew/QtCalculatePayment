@@ -93,7 +93,7 @@
           </palette>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -107,7 +107,7 @@
        <item row="1" column="1">
         <widget class="QLabel" name="Month_Year_Payment">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -121,7 +121,7 @@
        <item row="2" column="1">
         <widget class="QLabel" name="Value">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -135,7 +135,7 @@
        <item row="3" column="1">
         <widget class="QLabel" name="Date_Input_Value">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -149,7 +149,7 @@
        <item row="4" column="1">
         <widget class="QLabel" name="Commission">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>
@@ -163,7 +163,7 @@
        <item row="5" column="1">
         <widget class="QLabel" name="Sum_Commission">
          <property name="text">
-          <string>TextLabel</string>
+          <string>-----</string>
          </property>
         </widget>
        </item>

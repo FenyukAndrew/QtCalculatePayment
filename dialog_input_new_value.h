@@ -8,15 +8,17 @@ namespace Ui {
 class Dialog_Input_New_Value;
 }
 
+class QLineEdit;
+
 class Dialog_Input_New_Value : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit Dialog_Input_New_Value(QWidget *parent = 0);
+    explicit Dialog_Input_New_Value(std::list<QString> name_counters, QWidget *parent = 0);
     ~Dialog_Input_New_Value();
 
-    double get_Value() {return value;};
+    std::vector<double>& get_Value() {return values;};
     QDate get_Date() {return date_input;};
 
 private slots:
@@ -27,7 +29,8 @@ private slots:
 private:
     Ui::Dialog_Input_New_Value *ui;
 
-    double value;
+    std::vector<double> values;
+    std::vector<QLineEdit*> m_QLineEdits;
     QDate date_input;
 };
 

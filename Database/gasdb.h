@@ -10,7 +10,7 @@ public:
     GasDB();
     ~GasDB();
 
-    void get_last_record(Gas_record* m_gas_record);
+    bool get_last_record(Gas_record* m_gas_record);
     void insert_new_record(Gas_record* m_gas_record);
     void update_new_record(Gas_record* m_gas_record);
 
