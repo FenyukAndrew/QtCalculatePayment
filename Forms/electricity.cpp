@@ -28,6 +28,7 @@ void Electricity::show_last_record()
     ui->Value_Night->setText(russain_locale.toString(m_electricity_record.Value_Night));
     ui->Value_External->setText(russain_locale.toString(m_electricity_record.Value_External));
     ui->Delta_devices->setText(russain_locale.toString(m_electricity_record.delta_devices));
+    ui->sum_Saving->setText(russain_locale.toString(m_electricity_record.Savings,'f',2));
 
     ui->Sum->setText(russain_locale.toString(m_electricity_record.Sum,'f',3));
     if (m_electricity_record.Date_Payment.isValid())

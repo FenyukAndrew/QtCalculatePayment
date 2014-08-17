@@ -19,6 +19,7 @@ public:
 private:
     double cur_tariff_Day;
     double cur_tariff_Night;
+    double cur_tariff_Common;
 };
 
 #endif // ELECTRICITYDB_H

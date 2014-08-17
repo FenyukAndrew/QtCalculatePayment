@@ -45,6 +45,8 @@ struct Electricity_record
     double TariffDay;
     double TariffNight;
     QDate Month_Year_Payment;
+    double TariffCommon;
+    double Savings;
 
     Electricity_record()
     {
