@@ -6,19 +6,23 @@
 
 class WaterDB;
 
-namespace Ui {
+namespace Ui
+{
 class water;
 }
 
 class water : public QDialog
 {
     Q_OBJECT
-    
+
 public:
     explicit water(QWidget *parent = 0);
     ~water();
-    
-    double get_sum_payment() {return m_water_record.Sum_Commission;}
+
+    double get_sum_payment()
+    {
+        return sum_payment;
+    }//m_water_record.Sum_Commission;}
 
 private slots:
     void on_checkBox_HavePaid_stateChanged(int arg1);
@@ -38,6 +42,8 @@ private:
     WaterDB* m_WaterDB;
 
     Water_record m_water_record;
+
+    double sum_payment;//Значение совершенного платежа
 };
 
 #endif // WATER_H

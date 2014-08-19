@@ -21,21 +21,23 @@ struct Water_record
 
     inline void Init()
     {
-                Date_Input_Value=QDateTime();
-                Value=0;
-                //last_Value=0;
-                Sum=0;
-                Sum_Commission=0;
-                Date_Payment=QDateTime();
-                Tariff=0;
-                Month_Year_Payment=QDate();
+        Date_Input_Value=QDateTime();
+        Value=0;
+        //last_Value=0;
+        Sum=0;
+        Sum_Commission=0;
+        Date_Payment=QDateTime();
+        Tariff=0;
+        Month_Year_Payment=QDate();
     }
 };
 
 struct Electricity_record
 {
     QDateTime Date_Input_Value;
+    int Last_Value_Day;
     int Value_Day;
+    int Last_Value_Night;
     int Value_Night;
     int Value_External;
     int delta_devices;//Разница в показаниях счетчиков: двухтарифный и входной
@@ -44,8 +46,8 @@ struct Electricity_record
     QDateTime Date_Payment;
     double TariffDay;
     double TariffNight;
-    QDate Month_Year_Payment;
     double TariffCommon;
+    QDate Month_Year_Payment;
     double Savings;
 
     Electricity_record()
@@ -53,18 +55,9 @@ struct Electricity_record
         Init();
     }
 
-    inline void Init()
-    {
-                Date_Input_Value=QDateTime();
-                Value_Day=0;
-                Value_Night=0;
-                Value_External=0;
-                Sum=0;
-                Date_Payment=QDateTime();
-                TariffDay=0;
-                TariffNight=0;
-                Month_Year_Payment=QDate();
-    }
+    void Init();
+    void Calculate_Sum_and_Saving();
+    void Calculate_delta_devices(int value_External_last_month);
 };
 
 struct Gas_record
@@ -84,12 +77,12 @@ struct Gas_record
 
     inline void Init()
     {
-                Date_Input_Value=QDateTime();
-                Value=0;
-                Sum=0;
-                Date_Payment=QDateTime();
-                Tariff=0;
-                Month_Year_Payment=QDate();
+        Date_Input_Value=QDateTime();
+        Value=0;
+        Sum=0;
+        Date_Payment=QDateTime();
+        Tariff=0;
+        Month_Year_Payment=QDate();
     }
 };
 
@@ -107,10 +100,10 @@ struct Rubbish_record
 
     inline void Init()
     {
-                Date_Input_Value=QDateTime();
-                Sum=0;
-                Date_Payment=QDateTime();
-                Month_Year_Payment=QDate();
+        Date_Input_Value=QDateTime();
+        Sum=0;
+        Date_Payment=QDateTime();
+        Month_Year_Payment=QDate();
     }
 };
 

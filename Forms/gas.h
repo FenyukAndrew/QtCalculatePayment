@@ -6,7 +6,8 @@
 
 class GasDB;
 
-namespace Ui {
+namespace Ui
+{
 class Gas;
 }
 
@@ -18,7 +19,10 @@ public:
     explicit Gas(QWidget *parent = 0);
     ~Gas();
 
-    double get_sum_payment() {return m_gas_record.Sum;}
+    double get_sum_payment()
+    {
+        return sum_payment;
+    }//m_gas_record.Sum;}
 
 private slots:
     void on_pushButton_InputNewValue_clicked();
@@ -34,6 +38,7 @@ private:
 
     Gas_record m_gas_record;
 
+    double sum_payment;//Значение совершенного платежа
 };
 
 #endif // GAS_H

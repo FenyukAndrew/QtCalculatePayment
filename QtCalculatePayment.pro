@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     Database/gasdb.cpp \
     Database/rubbishdb.cpp \
     Database/commondb.cpp \
-    change_tariffs.cpp
+    change_tariffs.cpp \
+    Common_Struct_data.cpp \
+    Database/tariffsdb.cpp
 
 HEADERS  += mainwindow.h \
     Common.h \
@@ -44,7 +46,8 @@ HEADERS  += mainwindow.h \
     Database/rubbishdb.h \
     Database/commondb.h \
     Common_parameters.h \
-    change_tariffs.h
+    change_tariffs.h \
+    Database/tariffsdb.h
 
 FORMS    += mainwindow.ui \
     dialog_input_new_value.ui \
@@ -55,6 +58,7 @@ FORMS    += mainwindow.ui \
     Forms/gas.ui \
     change_tariffs.ui
 
+CONFIG += c++11
 CONFIG += mobility
 MOBILITY = 
 

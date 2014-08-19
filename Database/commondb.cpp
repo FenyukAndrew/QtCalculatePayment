@@ -24,7 +24,7 @@ double CommonDB::get_tariff(const std::string name_tariff)
     a_query->bindValue(":name_table", name_tariff.c_str());
     if (!a_query->exec())
     {
-        qDebug() << "Error select.";
+        qDebug() << "Error SELECT Value FROM tariffs.";
         return 0;
     }
     QSqlRecord rec = a_query->record();

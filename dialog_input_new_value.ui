@@ -33,11 +33,21 @@
      </property>
      <item alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Ввод нового значения для </string>
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

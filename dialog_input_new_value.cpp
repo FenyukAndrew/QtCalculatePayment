@@ -1,14 +1,16 @@
 #include "dialog_input_new_value.h"
 #include "ui_dialog_input_new_value.h"
 #include <QLineEdit>
-
 #include <limits>
+#include "Common_parameters.h"
 
 Dialog_Input_New_Value::Dialog_Input_New_Value(std::list<QString> name_counters, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog_Input_New_Value)
 {
     ui->setupUi(this);
+
+    ANDROID_MAKE_WINDOW_FULL_SCREEN;
 
     ui->dateEdit->setDate(QDate::currentDate());
 
@@ -24,11 +26,11 @@ Dialog_Input_New_Value::Dialog_Input_New_Value(std::list<QString> name_counters,
         m_QLineEdits.push_back(cur_edit);
     }
 
-        //Можно ограничить число символов, т.к. разрядность счетчика ограничена
-        //ui->lineEditValue->setInputMask("00009");
-        //ui->lineEditValue->setMaxLength(5);
+    //Можно ограничить число символов, т.к. разрядность счетчика ограничена
+    //ui->lineEditValue->setInputMask("00009");
+    //ui->lineEditValue->setMaxLength(5);
 
-        //myLineEdit->setValidator( new QDoubleValidator(0, 100, this) )
+    //myLineEdit->setValidator( new QDoubleValidator(0, 100, this) )
 }
 
 Dialog_Input_New_Value::~Dialog_Input_New_Value()

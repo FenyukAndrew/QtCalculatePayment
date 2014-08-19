@@ -6,20 +6,24 @@
 
 class ElectricityDB;
 
-namespace Ui {
+namespace Ui
+{
 class Electricity;
 }
 
 class Electricity : public QDialog
 {
     Q_OBJECT
-    
+
 public:
     explicit Electricity(QWidget *parent = 0);
     ~Electricity();
 
-    double get_sum_payment() {return m_electricity_record.Sum;}
-    
+    double get_sum_payment()
+    {
+        return sum_payment;
+    }//m_electricity_record.Sum;}
+
 private slots:
     void on_pushButton_InputNewValue_clicked();
 
@@ -34,7 +38,7 @@ private:
 
     Electricity_record m_electricity_record;
 
-    double value_payment;//Значение совершенного платежа
+    double sum_payment;//Значение совершенного платежа
 };
 
 #endif // ELECTRICITY_H

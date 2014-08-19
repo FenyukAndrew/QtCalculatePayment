@@ -13,7 +13,7 @@ bool RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
 {
     //Записи сортируются по _id = иначе неправильный ввод значения может все испортить
     //Записи идут в обратном порядке - вначале самая последняя, затем предпоследняя
-   if (!a_query->exec("SELECT Date_Input_Value,Sum,Date_Payment,Month_Payment,Year_Payment FROM Rubbish order by _id DESC limit 1"))
+    if (!a_query->exec("SELECT Date_Input_Value,Sum,Date_Payment,Month_Payment,Year_Payment FROM Rubbish order by _id DESC limit 1"))
     {
         qDebug() << "Error select Rubbish";
         return false;
@@ -31,7 +31,8 @@ bool RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
         m_rubbish_record->Month_Year_Payment=QDate(year,month,1);
 
         if (!m_rubbish_record->Date_Payment.isValid())
-        {//Если оплата не произведена - производяться вычисления
+        {
+            //Если оплата не произведена - производяться вычисления
             //Чтоб их было видно перед добавлением в базу
             //и они были актуальны на время оплаты
             m_rubbish_record->Sum=cur_tariff;
@@ -44,23 +45,23 @@ bool RubbishDB::get_last_record(Rubbish_record* m_rubbish_record)
 void RubbishDB::insert_new_record(Rubbish_record* m_rubbish_record)
 {
     a_query->prepare("INSERT INTO Rubbish (Date_Input_Value,Month_Payment,Year_Payment)"
-                  " VALUES (datetime('now','localtime'),:month_payment,:year_payment)");
+                     " VALUES (datetime('now','localtime'),:month_payment,:year_payment)");
     a_query->bindValue(":month_payment", m_rubbish_record->Month_Year_Payment.month());
     a_query->bindValue(":year_payment",  m_rubbish_record->Month_Year_Payment.year());
     if (!a_query->exec())
     {
-            qDebug() << "Error insert Rubbish";
+        qDebug() << "Error insert Rubbish";
     }
 }
 
 void RubbishDB::update_new_record(Rubbish_record* m_rubbish_record)
 {
     a_query->prepare("UPDATE Rubbish"
-                    " SET Date_Payment=(datetime('now', 'localtime')),Sum=:total_sum"
-                  " WHERE _id=(select max(_id) from Rubbish)");
+                     " SET Date_Payment=(datetime('now', 'localtime')),Sum=:total_sum"
+                     " WHERE _id=(select max(_id) from Rubbish)");
     a_query->bindValue(":total_sum", m_rubbish_record->Sum);
     if (!a_query->exec())
     {
-            qDebug() << "Error update Rubbish";
+        qDebug() << "Error update Rubbish";
     }
 }

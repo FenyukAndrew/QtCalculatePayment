@@ -6,12 +6,20 @@
 #include "Forms/rubbish.h"
 #include "control_payments.h"
 #include "change_tariffs.h"
+#include "Common_parameters.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ANDROID_MAKE_WINDOW_FULL_SCREEN;
+
+    for(short i=0;i<c_types_of_payments;i++)
+    {//Чтобы не было левых значений
+        sum_payments[i]=0;
+    }
 }
 
 MainWindow::~MainWindow()

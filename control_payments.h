@@ -3,11 +3,10 @@
 
 #include <QDialog>
 
-namespace Ui {
+namespace Ui
+{
 class Control_Payments;
 }
-
-class QLocale;
 
 class Control_Payments : public QDialog
 {
@@ -20,14 +19,14 @@ public:
 private slots:
     void on_amount_before_textChanged(const QString &arg1);
 
+    void on_pushButton_OK_clicked();
+
 private:
     Ui::Control_Payments *ui;
 
     void calculate();
 
     double total_sum_payments;
-
-    QLocale* russain_locale;
 
 };
 

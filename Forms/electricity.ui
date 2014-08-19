@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>282</width>
-    <height>269</height>
+    <height>356</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,6 +33,13 @@
      </property>
      <item>
       <widget class="QLabel" name="label_1">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Электричество</string>
        </property>
@@ -62,49 +69,12 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Сумма:</string>
+          <string>Месяц оплаты:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="Sum">
-         <property name="palette">
-          <palette>
-           <active>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>0</red>
-               <green>255</green>
-               <blue>127</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </active>
-           <inactive>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>0</red>
-               <green>255</green>
-               <blue>127</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </inactive>
-           <disabled>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>239</red>
-               <green>235</green>
-               <blue>231</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </disabled>
-          </palette>
-         </property>
+        <widget class="QLabel" name="Month_Year_Payment">
          <property name="text">
           <string>-----</string>
          </property>
@@ -113,12 +83,12 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Месяц оплаты:</string>
+          <string>Прев.пока-я День:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="Month_Year_Payment">
+        <widget class="QLabel" name="Last_Value_Day">
          <property name="text">
           <string>-----</string>
          </property>
@@ -141,12 +111,12 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Показания Ночь:</string>
+          <string>Прев.пок-я Ночь:</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLabel" name="Value_Night">
+        <widget class="QLabel" name="Last_Value_Night">
          <property name="text">
           <string>-----</string>
          </property>
@@ -155,12 +125,12 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Показания Внешний:</string>
+          <string>Показания Ночь:</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLabel" name="Value_External">
+        <widget class="QLabel" name="Value_Night">
          <property name="text">
           <string>-----</string>
          </property>
@@ -169,12 +139,12 @@
        <item row="5" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>Разница:</string>
+          <string>Сумма:</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLabel" name="Delta_devices">
+        <widget class="QLabel" name="Sum">
          <property name="text">
           <string>-----</string>
          </property>
@@ -183,12 +153,12 @@
        <item row="6" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>Экономия:</string>
+          <string>Пока-ния Внешний:</string>
          </property>
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLabel" name="sum_Saving">
+        <widget class="QLabel" name="Value_External">
          <property name="text">
           <string>-----</string>
          </property>
@@ -197,11 +167,39 @@
        <item row="7" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>Дата ввода показаний:</string>
+          <string>Разница:</string>
          </property>
         </widget>
        </item>
        <item row="7" column="1">
+        <widget class="QLabel" name="Delta_devices">
+         <property name="text">
+          <string>-----</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Экономия:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLabel" name="sum_Saving">
+         <property name="text">
+          <string>-----</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Дата ввода пока-ий:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
         <widget class="QLabel" name="Date_Input_Value">
          <property name="text">
           <string>-----</string>

@@ -1,8 +1,8 @@
 #include "gas.h"
 #include "ui_gas.h"
 #include "Database/gasdb.h"
-#include <QLocale>
 #include "dialog_input_new_value.h"
+#include "Common_parameters.h"
 
 Gas::Gas(QWidget *parent) :
     QDialog(parent),
@@ -10,37 +10,44 @@ Gas::Gas(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ANDROID_MAKE_WINDOW_FULL_SCREEN;
+
     m_GasDB=new GasDB();
     show_last_record();
 }
 
 void Gas::show_last_record()
 {
+    sum_payment=0;//По умолчанию считается, что платеж не совершен
+
     if (m_GasDB->get_last_record(&m_gas_record))
     {
 
-    QLocale russain_locale(QLocale::Russian);
+        ui->Date_Input_Value->setText(system_locale.toString(m_gas_record.Date_Input_Value,c_format_Date_Input_Value));
+        ui->Month_Year_Payment->setText(system_locale.toString(m_gas_record.Month_Year_Payment,c_format_Date_Month_Year_Payment));
 
-    ui->Date_Input_Value->setText(russain_locale.toString(m_gas_record.Date_Input_Value,"dd.MM.yyyy hh:mm:ss"));
-    ui->Month_Year_Payment->setText(russain_locale.toString(m_gas_record.Month_Year_Payment,"MM\\yyyy"));
-
-    ui->Value->setText(russain_locale.toString(m_gas_record.Value));
-    ui->Sum->setText(russain_locale.toString(m_gas_record.Sum,'f',3));
-    if (m_gas_record.Date_Payment.isValid())
-    {
-        //Вывод когда была произведена оплата
-        ui->checkBox_HavePaid->setText("ОПЛАЧЕНО "+russain_locale.toString(m_gas_record.Date_Payment,"dd.MM.yyyy hh:mm:ss"));
-        ui->checkBox_HavePaid->setChecked(1);
-        ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
-        ui->pushButton_InputNewValue->setEnabled(1);
-    }
-    else
-    {
-        ui->checkBox_HavePaid->setText("ОПЛАТИТЬ");
-        ui->checkBox_HavePaid->setChecked(0);
-        ui->checkBox_HavePaid->setEnabled(1);
-        ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
-    }
+        ui->Value->setText(system_locale.toString(m_gas_record.Value));
+        ui->Sum->setText(system_locale.toString(m_gas_record.Sum,'f',3));
+        if (m_gas_record.Date_Payment.isValid())
+        {
+            //Вывод когда была произведена оплата
+            ui->checkBox_HavePaid->setText("ОПЛАЧЕНО "+system_locale.toString(m_gas_record.Date_Payment,c_format_Date_checkBox_HavePaid));
+            ui->checkBox_HavePaid->setChecked(1);
+            ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
+            ui->pushButton_InputNewValue->setEnabled(1);
+            if (QDateTime::currentDateTime().secsTo(m_gas_record.Date_Payment)<C_TIME_FROM_PAYMENT)
+            {
+                //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
+                sum_payment=m_gas_record.Sum;
+            }
+        }
+        else
+        {
+            ui->checkBox_HavePaid->setText("ОПЛАТИТЬ");
+            ui->checkBox_HavePaid->setChecked(0);
+            ui->checkBox_HavePaid->setEnabled(1);
+            ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
+        }
     }
 }
 
@@ -71,9 +78,11 @@ void Gas::on_pushButton_InputNewValue_clicked()
 void Gas::on_pushButton_OK_clicked()
 {
     if (!m_gas_record.Date_Payment.isValid())
-    {//Только в случае первого ввода данных
+    {
+        //Только в случае первого ввода данных
         if (ui->checkBox_HavePaid->isChecked())
-        {//Update делается только если подтвержден платеж
+        {
+            //Update делается только если подтвержден платеж
             m_GasDB->update_new_record(&m_gas_record);
         };
     };

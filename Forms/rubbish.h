@@ -18,7 +18,7 @@ public:
     explicit Rubbish(QWidget *parent = 0);
     ~Rubbish();
 
-    double get_sum_payment() {return m_rubbish_record.Sum;}
+    double get_sum_payment() {return sum_payment;}//m_rubbish_record.Sum;}
 
 private slots:
     void on_pushButton_InputNewValue_clicked();
@@ -33,6 +33,8 @@ private:
     RubbishDB* m_RubbishDB;
 
     Rubbish_record m_rubbish_record;
+
+    double sum_payment;//Значение совершенного платежа
 };
 
 #endif // RUBBISH_H

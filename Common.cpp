@@ -4,14 +4,16 @@
 
 #ifdef Q_OS_ANDROID
 //Для Android версии
-    const char* pathDB="/mnt/sdcard/sdcard2/Payments.db";
-#endif
+const char* pathDB="/mnt/sdcard/sdcard2/Payments.db";
+//const char* pathDB="/mnt/sdcard/Payments.db";//Для 1 SD Card
 
-#ifdef Q_OS_LINUX
+//Т.к. Android принадлежит множеству Linux
+#elif defined(Q_OS_LINUX)
 const char* pathDB="/home/andrew/Dropbox/OutWiker_Files/Databases/Payments.db";
 #endif
 
 #ifdef Q_OS_WIN32
+const char* pathDB="C:/Dropbox/OutWiker_Files/Databases/Payments.db";
 #endif
 
 //Можно описывать в файле .pro
