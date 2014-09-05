@@ -61,15 +61,15 @@ void Gas::on_pushButton_InputNewValue_clicked()
 {
     std::list<QString> name_counters;
     name_counters.push_back(QString("Значение счетчика:"));
-    Dialog_Input_New_Value m_dialog_input_new_value(name_counters);
+    Dialog_Input_New_Value m_dialog_input_new_value(m_gas_record.Month_Year_Payment,name_counters);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
     {
-        Gas_record m_gas_record;
-        m_gas_record.Value=m_dialog_input_new_value.get_Value()[0];
-        m_gas_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
-        m_GasDB->insert_new_record(&m_gas_record);
+        Gas_record m_gas_new_record;
+        m_gas_new_record.Value=m_dialog_input_new_value.get_Value()[0];
+        m_gas_new_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_GasDB->insert_new_record(&m_gas_new_record);
 
         show_last_record();
     }

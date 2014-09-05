@@ -91,15 +91,15 @@ void water::on_pushButton_InputNewValue_clicked()
 {
     std::list<QString> name_counters;
     name_counters.push_back(QString("Значение счетчика:"));
-    Dialog_Input_New_Value m_dialog_input_new_value(name_counters);
+    Dialog_Input_New_Value m_dialog_input_new_value(m_water_record.Month_Year_Payment,name_counters);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
     {
-        Water_record m_water_record;
-        m_water_record.Value=m_dialog_input_new_value.get_Value()[0];
-        m_water_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
-        m_WaterDB->insert_new_record(&m_water_record);
+        Water_record m_water_new_record;
+        m_water_new_record.Value=m_dialog_input_new_value.get_Value()[0];
+        m_water_new_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_WaterDB->insert_new_record(&m_water_new_record);
 
         show_last_record();
     }

@@ -4,7 +4,7 @@
 #include <limits>
 #include "Common_parameters.h"
 
-Dialog_Input_New_Value::Dialog_Input_New_Value(std::list<QString> name_counters, QWidget *parent) :
+Dialog_Input_New_Value::Dialog_Input_New_Value(const QDate& last_Month_Year_Payment,std::list<QString> name_counters, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog_Input_New_Value)
 {
@@ -12,7 +12,15 @@ Dialog_Input_New_Value::Dialog_Input_New_Value(std::list<QString> name_counters,
 
     ANDROID_MAKE_WINDOW_FULL_SCREEN;
 
-    ui->dateEdit->setDate(QDate::currentDate());
+    if (last_Month_Year_Payment.isValid())
+    {
+        ui->dateEdit->setDate(last_Month_Year_Payment.addMonths(1));//Следующий месяц
+    }
+    else
+    {
+        QDate cur_date=QDate::currentDate();
+        ui->dateEdit->setDate(QDate(cur_date.year(),cur_date.month(),1));//Всегда должно быть начало месяца - так красивее
+    }
 
     //Лучше счетчики добавлять динамически
     //auto

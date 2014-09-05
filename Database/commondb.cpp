@@ -35,4 +35,3 @@ double CommonDB::get_tariff(const std::string name_tariff)
     }
     return 0;
 }
-

@@ -66,22 +66,23 @@ Electricity::~Electricity()
 
 void Electricity::on_pushButton_InputNewValue_clicked()
 {
+
     std::list<QString> name_counters;
     name_counters.push_back(QString("Счетчик День:"));
     name_counters.push_back(QString("Счетчик Ночь:"));
     name_counters.push_back(QString("Счетчик Внешний:"));
-    Dialog_Input_New_Value m_dialog_input_new_value(name_counters);
+    Dialog_Input_New_Value m_dialog_input_new_value(m_electricity_record.Month_Year_Payment,name_counters);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
     {
-        Electricity_record m_electricity_record;
+        Electricity_record m_electricity_new_record;
         std::vector<double> values=m_dialog_input_new_value.get_Value();
-        m_electricity_record.Value_Day=values[0];
-        m_electricity_record.Value_Night=values[1];
-        m_electricity_record.Value_External=values[2];
-        m_electricity_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
-        m_ElectricityDB->insert_new_record(&m_electricity_record);
+        m_electricity_new_record.Value_Day=values[0];
+        m_electricity_new_record.Value_Night=values[1];
+        m_electricity_new_record.Value_External=values[2];
+        m_electricity_new_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_ElectricityDB->insert_new_record(&m_electricity_new_record);
 
         show_last_record();
     }

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
 QT += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -63,5 +63,8 @@ CONFIG += mobility
 MOBILITY = 
 
 OTHER_FILES += \
-    Readme.txt
+    Readme.txt \
+    android/AndroidManifest.xml
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

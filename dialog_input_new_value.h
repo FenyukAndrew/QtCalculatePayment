@@ -16,7 +16,7 @@ class Dialog_Input_New_Value : public QDialog
     Q_OBJECT
 
 public:
-    explicit Dialog_Input_New_Value(std::list<QString> name_counters, QWidget *parent = 0);
+    explicit Dialog_Input_New_Value(const QDate& last_Month_Year_Payment,std::list<QString> name_counters, QWidget *parent = 0);
     ~Dialog_Input_New_Value();
 
     std::vector<double>& get_Value()

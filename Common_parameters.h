@@ -21,6 +21,8 @@ static QLocale system_locale(QLocale::system());
 #ifdef Q_OS_ANDROID
 //Для Android версии все окна выводяться на весь экран
 #define ANDROID_MAKE_WINDOW_FULL_SCREEN setWindowState((windowState() & ~(Qt::WindowMinimized | Qt::WindowFullScreen)) | Qt::WindowMaximized);
+
+
 #else
 #define ANDROID_MAKE_WINDOW_FULL_SCREEN
 #endif

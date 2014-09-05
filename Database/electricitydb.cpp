@@ -98,3 +98,23 @@ void ElectricityDB::update_new_record(Electricity_record* m_electricity_record)
         qDebug() << "Error update Electricity";
     }
 }
+
+//Получение месяца следующего за месяцем, за который был произведен платеж
+/*bool ElectricityDB::get_last_paid_month(QDate& m_next_Month_Year_Payment)
+{
+    if (!a_query->exec("select Month_Payment,Year_Payment from Electricity where _id=(select max(_id) from Electricity)"))
+    {
+        qDebug() << "Error select last_paid_month Electricity";
+        return false;
+    }
+    QSqlRecord rec = a_query->record();
+
+    if (a_query->next())
+    {
+        int month=a_query->value(rec.indexOf("Month_Payment")).toInt();
+        int year=a_query->value(rec.indexOf("Year_Payment")).toInt();
+        m_next_Month_Year_Payment=QDate(year,month,1).addMonths(1);
+        return true;
+    }
+    return false;
+}*/
