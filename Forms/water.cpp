@@ -43,11 +43,6 @@ void water::show_last_record()
             ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
             ui->pushButton_InputNewValue->setEnabled(1);
             //qDebug() << "VALID";
-            if (QDateTime::currentDateTime().secsTo(m_water_record.Date_Payment)<C_TIME_FROM_PAYMENT)
-            {
-                //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
-                sum_payment=m_water_record.Sum_Commission;
-            }
         }
         else
         {
@@ -105,6 +100,11 @@ void water::on_pushButton_InputNewValue_clicked()
     }
 }
 
+void water::on_pushButton_EditValue_clicked()
+{
+
+}
+
 void water::on_pushButton_OK_clicked()
 {
     //if (ui->checkBox_HavePaid->isEnabled())
@@ -116,6 +116,16 @@ void water::on_pushButton_OK_clicked()
             //Update делается только если подтвержден платеж
             m_WaterDB->update_new_record(&m_water_record);
         };
+        sum_payment=m_water_record.Sum_Commission;//Только что произведена оплата, добавление в общую сумму
+    }
+    else
+    {
+        //В случае просмотра только что совершенных платежей
+        if (QDateTime::currentDateTime().secsTo(m_water_record.Date_Payment)<C_TIME_FROM_PAYMENT)
+        {
+            //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
+            sum_payment=m_water_record.Sum_Commission;
+        }
     };
     close();
 }

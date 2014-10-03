@@ -35,11 +35,6 @@ void Gas::show_last_record()
             ui->checkBox_HavePaid->setChecked(1);
             ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
             ui->pushButton_InputNewValue->setEnabled(1);
-            if (QDateTime::currentDateTime().secsTo(m_gas_record.Date_Payment)<C_TIME_FROM_PAYMENT)
-            {
-                //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
-                sum_payment=m_gas_record.Sum;
-            }
         }
         else
         {
@@ -75,6 +70,11 @@ void Gas::on_pushButton_InputNewValue_clicked()
     }
 }
 
+void Gas::on_pushButton_EditValue_clicked()
+{
+
+}
+
 void Gas::on_pushButton_OK_clicked()
 {
     if (!m_gas_record.Date_Payment.isValid())
@@ -85,6 +85,16 @@ void Gas::on_pushButton_OK_clicked()
             //Update делается только если подтвержден платеж
             m_GasDB->update_new_record(&m_gas_record);
         };
+        sum_payment=m_gas_record.Sum;//Только что произведена оплата, добавление в общую сумму
+    }
+    else
+    {
+        //В случае просмотра только что совершенных платежей
+        if (QDateTime::currentDateTime().secsTo(m_gas_record.Date_Payment)<C_TIME_FROM_PAYMENT)
+        {
+            //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
+            sum_payment=m_gas_record.Sum;
+        }
     };
     close();
 }

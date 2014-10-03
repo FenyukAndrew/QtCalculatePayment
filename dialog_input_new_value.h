@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QDate>
 
+#include "counter_type.h"
+
 namespace Ui
 {
 class Dialog_Input_New_Value;
@@ -17,6 +19,7 @@ class Dialog_Input_New_Value : public QDialog
 
 public:
     explicit Dialog_Input_New_Value(const QDate& last_Month_Year_Payment,std::list<QString> name_counters, QWidget *parent = 0);
+    explicit Dialog_Input_New_Value(const QDate& last_Month_Year_Payment,std::list<Counter_Type>& counters, e_input_or_edit m_input_or_edit, QWidget *parent=0);
     ~Dialog_Input_New_Value();
 
     std::vector<double>& get_Value()

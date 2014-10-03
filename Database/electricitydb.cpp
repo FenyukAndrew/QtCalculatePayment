@@ -99,6 +99,23 @@ void ElectricityDB::update_new_record(Electricity_record* m_electricity_record)
     }
 }
 
+void ElectricityDB::update_last_record(Electricity_record* m_electricity_record)
+{
+    a_query->prepare("UPDATE Electricity"
+                     " SET Date_Input_Value=(datetime('now','localtime')),Value_Day=:value_Day_payment,"
+                     "Value_Night=:value_Night_payment,Value_External=:value_External_payment,Month_Payment=:month_payment,Year_Payment=:year_payment"
+                     " WHERE _id=(select max(_id) from Electricity)");
+    a_query->bindValue(":value_Day_payment", m_electricity_record->Value_Day);
+    a_query->bindValue(":value_Night_payment", m_electricity_record->Value_Night);
+    a_query->bindValue(":value_External_payment", m_electricity_record->Value_External);
+    a_query->bindValue(":month_payment", m_electricity_record->Month_Year_Payment.month());
+    a_query->bindValue(":year_payment",  m_electricity_record->Month_Year_Payment.year());
+    if (!a_query->exec())
+    {
+        qDebug() << "Error update last Electricity";
+    }
+}
+
 //Получение месяца следующего за месяцем, за который был произведен платеж
 /*bool ElectricityDB::get_last_paid_month(QDate& m_next_Month_Year_Payment)
 {

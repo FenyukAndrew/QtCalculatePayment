@@ -22,7 +22,6 @@ void Electricity::show_last_record()
 
     if (m_ElectricityDB->get_last_record(&m_electricity_record))
     {
-
         ui->Date_Input_Value->setText(system_locale.toString(m_electricity_record.Date_Input_Value,c_format_Date_Input_Value));
         ui->Month_Year_Payment->setText(system_locale.toString(m_electricity_record.Month_Year_Payment,c_format_Date_Month_Year_Payment));
 
@@ -42,11 +41,7 @@ void Electricity::show_last_record()
             ui->checkBox_HavePaid->setChecked(1);
             ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
             ui->pushButton_InputNewValue->setEnabled(1);
-            if (QDateTime::currentDateTime().secsTo(m_electricity_record.Date_Payment)<C_TIME_FROM_PAYMENT)
-            {
-                //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
-                sum_payment=m_electricity_record.Sum;
-            }
+            ui->pushButton_EditValue->setEnabled(0);
         }
         else
         {
@@ -54,6 +49,7 @@ void Electricity::show_last_record()
             ui->checkBox_HavePaid->setChecked(0);
             ui->checkBox_HavePaid->setEnabled(1);
             ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
+            ui->pushButton_EditValue->setEnabled(1);
         }
     }
 }
@@ -66,12 +62,17 @@ Electricity::~Electricity()
 
 void Electricity::on_pushButton_InputNewValue_clicked()
 {
+    //Добавить кнопку редактировать - редактирование существующего значения, ещё не оплаченного. Если оплачено - заблокировать эту кнопку???
 
-    std::list<QString> name_counters;
-    name_counters.push_back(QString("Счетчик День:"));
-    name_counters.push_back(QString("Счетчик Ночь:"));
-    name_counters.push_back(QString("Счетчик Внешний:"));
-    Dialog_Input_New_Value m_dialog_input_new_value(m_electricity_record.Month_Year_Payment,name_counters);
+    //Сделано - ввод следующего значения должен быть больше преведущего, т.к. по умолчанию указывается 0
+    //Сделано - Проверить исправлен подсчет контрольнной суммы - проверить подсчет при вводе новых значений и при просто просмотре
+    //Скопировать во все элементы
+
+    std::list<Counter_Type> counters;
+    counters.push_back(Counter_Type(QString("Счетчик День:"),m_electricity_record.Value_Day));
+    counters.push_back(Counter_Type(QString("Счетчик Ночь:"),m_electricity_record.Value_Night));
+    counters.push_back(Counter_Type(QString("Счетчик Внешний:"),m_electricity_record.Value_External));
+    Dialog_Input_New_Value m_dialog_input_new_value(m_electricity_record.Month_Year_Payment,counters,e_dlg_new_input);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
@@ -88,6 +89,28 @@ void Electricity::on_pushButton_InputNewValue_clicked()
     }
 }
 
+void Electricity::on_pushButton_EditValue_clicked()
+{
+    std::list<Counter_Type> counters;
+    counters.push_back(Counter_Type(QString("Счетчик День:"),m_electricity_record.Value_Day));
+    counters.push_back(Counter_Type(QString("Счетчик Ночь:"),m_electricity_record.Value_Night));
+    counters.push_back(Counter_Type(QString("Счетчик Внешний:"),m_electricity_record.Value_External));
+    Dialog_Input_New_Value m_dialog_input_new_value(m_electricity_record.Month_Year_Payment,counters,e_dlg_edit_value);
+    int retCode = m_dialog_input_new_value.exec();
+
+    if (retCode==QDialog::Accepted)
+    {
+        std::vector<double> values=m_dialog_input_new_value.get_Value();
+        m_electricity_record.Value_Day=values[0];
+        m_electricity_record.Value_Night=values[1];
+        m_electricity_record.Value_External=values[2];
+        m_electricity_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_ElectricityDB->update_last_record(&m_electricity_record);
+
+        show_last_record();
+    }
+}
+
 void Electricity::on_pushButton_OK_clicked()
 {
     if (!m_electricity_record.Date_Payment.isValid())
@@ -98,6 +121,17 @@ void Electricity::on_pushButton_OK_clicked()
             //Update делается только если подтвержден платеж
             m_ElectricityDB->update_new_record(&m_electricity_record);
         };
+        sum_payment=m_electricity_record.Sum;//Только что произведена оплата, добавление в общую сумму
+    }
+    else
+    {
+        //В случае просмотра только что совершенных платежей
+        if (QDateTime::currentDateTime().secsTo(m_electricity_record.Date_Payment)<C_TIME_FROM_PAYMENT)
+        {
+            //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
+            sum_payment=m_electricity_record.Sum;
+        }
     };
+
     close();
 }

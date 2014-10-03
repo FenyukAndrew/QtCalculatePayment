@@ -47,7 +47,8 @@ HEADERS  += mainwindow.h \
     Database/commondb.h \
     Common_parameters.h \
     change_tariffs.h \
-    Database/tariffsdb.h
+    Database/tariffsdb.h \
+    counter_type.h
 
 FORMS    += mainwindow.ui \
     dialog_input_new_value.ui \

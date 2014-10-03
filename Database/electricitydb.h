@@ -13,6 +13,7 @@ public:
     bool get_last_record(Electricity_record* m_electricity_record);
     void insert_new_record(Electricity_record* m_electricity_record);
     void update_new_record(Electricity_record* m_electricity_record);
+    void update_last_record(Electricity_record* m_electricity_record);
     //bool get_last_paid_month(QDate& m_next_Month_Year_Payment);
 
     void create_table();//Создание новой базы

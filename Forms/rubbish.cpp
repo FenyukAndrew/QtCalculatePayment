@@ -33,11 +33,6 @@ void Rubbish::show_last_record()
             ui->checkBox_HavePaid->setChecked(1);
             ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
             ui->pushButton_InputNewValue->setEnabled(1);
-            if (QDateTime::currentDateTime().secsTo(m_rubbish_record.Date_Payment)<C_TIME_FROM_PAYMENT)
-            {
-                //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
-                sum_payment=m_rubbish_record.Sum;
-            }
         }
         else
         {
@@ -81,6 +76,16 @@ void Rubbish::on_pushButton_OK_clicked()
             //Update делается только если подтвержден платеж
             m_RubbishDB->update_new_record(&m_rubbish_record);
         };
+        sum_payment=m_rubbish_record.Sum;//Только что произведена оплата, добавление в общую сумму
+    }
+    else
+    {
+        //В случае просмотра только что совершенных платежей
+        if (QDateTime::currentDateTime().secsTo(m_rubbish_record.Date_Payment)<C_TIME_FROM_PAYMENT)
+        {
+            //Если оплата была произведена недавно добавить ее в список для вычисления Конроль
+            sum_payment=m_rubbish_record.Sum;
+        }
     };
     close();
 }
