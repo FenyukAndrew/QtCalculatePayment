@@ -62,12 +62,6 @@ Electricity::~Electricity()
 
 void Electricity::on_pushButton_InputNewValue_clicked()
 {
-    //Добавить кнопку редактировать - редактирование существующего значения, ещё не оплаченного. Если оплачено - заблокировать эту кнопку???
-
-    //Сделано - ввод следующего значения должен быть больше преведущего, т.к. по умолчанию указывается 0
-    //Сделано - Проверить исправлен подсчет контрольнной суммы - проверить подсчет при вводе новых значений и при просто просмотре
-    //Скопировать во все элементы
-
     std::list<Counter_Type> counters;
     counters.push_back(Counter_Type(QString("Счетчик День:"),m_electricity_record.Value_Day));
     counters.push_back(Counter_Type(QString("Счетчик Ночь:"),m_electricity_record.Value_Night));

@@ -160,3 +160,18 @@ void WaterDB::update_new_record(Water_record* m_water_record)
 
 //ПРИ записи SQL выражения в несколько строк - вставлять пробелы после (или перед) каждой новой строки
 //Иначе возникает ошибка при выполнении запроса
+
+void WaterDB::update_last_record(Water_record* m_water_record)
+{
+    a_query->prepare("UPDATE Water"
+                     " SET Date_Input_Value=(datetime('now','localtime')),Value=:value_payment,"
+                     "Month_Payment=:month_payment,Year_Payment=:year_payment"
+                     " WHERE _id=(select max(_id) from Water)");
+    a_query->bindValue(":value_payment", m_water_record->Value);
+    a_query->bindValue(":month_payment", m_water_record->Month_Year_Payment.month());
+    a_query->bindValue(":year_payment",  m_water_record->Month_Year_Payment.year());
+    if (!a_query->exec())
+    {
+        qDebug() << "Error update last Water";
+    }
+}

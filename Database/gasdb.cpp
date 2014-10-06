@@ -78,3 +78,18 @@ void GasDB::update_new_record(Gas_record* m_gas_record)
         qDebug() << "Error update Gas";
     }
 }
+
+void GasDB::update_last_record(Gas_record* m_gas_record)
+{
+    a_query->prepare("UPDATE Gas"
+                     " SET Date_Input_Value=(datetime('now','localtime')),Value=:value_payment,"
+                     "Month_Payment=:month_payment,Year_Payment=:year_payment"
+                     " WHERE _id=(select max(_id) from Gas)");
+    a_query->bindValue(":value_payment", m_gas_record->Value);
+    a_query->bindValue(":month_payment", m_gas_record->Month_Year_Payment.month());
+    a_query->bindValue(":year_payment",  m_gas_record->Month_Year_Payment.year());
+    if (!a_query->exec())
+    {
+        qDebug() << "Error update last Gas";
+    }
+}

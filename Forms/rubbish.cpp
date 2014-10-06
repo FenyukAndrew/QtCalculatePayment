@@ -52,8 +52,8 @@ Rubbish::~Rubbish()
 
 void Rubbish::on_pushButton_InputNewValue_clicked()
 {
-    std::list<QString> name_counters;
-    Dialog_Input_New_Value m_dialog_input_new_value(m_rubbish_record.Month_Year_Payment,name_counters);
+    std::list<Counter_Type> counters;
+    Dialog_Input_New_Value m_dialog_input_new_value(m_rubbish_record.Month_Year_Payment,counters,e_dlg_new_input);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)

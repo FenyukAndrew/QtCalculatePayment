@@ -42,6 +42,7 @@ void water::show_last_record()
             ui->checkBox_HavePaid->setChecked(1);
             ui->checkBox_HavePaid->setEnabled(0);//Подавление, чтобы нельзя бы изменить состояние
             ui->pushButton_InputNewValue->setEnabled(1);
+            ui->pushButton_EditValue->setEnabled(0);
             //qDebug() << "VALID";
         }
         else
@@ -50,6 +51,7 @@ void water::show_last_record()
             ui->checkBox_HavePaid->setChecked(0);
             ui->checkBox_HavePaid->setEnabled(1);
             ui->pushButton_InputNewValue->setEnabled(0);//Подавление, чтобы нельзя бы перейти к вводу нового значения
+            ui->pushButton_EditValue->setEnabled(1);
             //qDebug() << "not valid";
         }
     }
@@ -84,9 +86,9 @@ void water::on_checkBox_HavePaid_clicked()
 
 void water::on_pushButton_InputNewValue_clicked()
 {
-    std::list<QString> name_counters;
-    name_counters.push_back(QString("Значение счетчика:"));
-    Dialog_Input_New_Value m_dialog_input_new_value(m_water_record.Month_Year_Payment,name_counters);
+    std::list<Counter_Type> counters;
+    counters.push_back(Counter_Type(QString("Значение счетчика:"),m_water_record.Value));
+    Dialog_Input_New_Value m_dialog_input_new_value(m_water_record.Month_Year_Payment,counters,e_dlg_new_input);
     int retCode = m_dialog_input_new_value.exec();
 
     if (retCode==QDialog::Accepted)
@@ -98,11 +100,24 @@ void water::on_pushButton_InputNewValue_clicked()
 
         show_last_record();
     }
+
 }
 
 void water::on_pushButton_EditValue_clicked()
 {
+    std::list<Counter_Type> counters;
+    counters.push_back(Counter_Type(QString("Значение счетчика:"),m_water_record.Value));
+    Dialog_Input_New_Value m_dialog_input_new_value(m_water_record.Month_Year_Payment,counters,e_dlg_edit_value);
+    int retCode = m_dialog_input_new_value.exec();
 
+    if (retCode==QDialog::Accepted)
+    {
+        m_water_record.Value=m_dialog_input_new_value.get_Value()[0];
+        m_water_record.Month_Year_Payment=m_dialog_input_new_value.get_Date();
+        m_WaterDB->update_last_record(&m_water_record);
+
+        show_last_record();
+    }
 }
 
 void water::on_pushButton_OK_clicked()
